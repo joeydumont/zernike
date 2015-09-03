@@ -15,4 +15,4 @@ unsigned int binomial_coefficient(unsigned int n,
   return (unsigned int)binom;
 }
 
-}
+} // namespace Zernike
