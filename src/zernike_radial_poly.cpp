@@ -4,7 +4,8 @@ namespace Zernike {
 
 double ZernikeRadialPolynomial(unsigned int n,
                                unsigned int m,
-                               double r)
+                               double r,
+                               ZernikeEvaluationMethod eval_method)
 {
 
   if (n<m)
@@ -15,13 +16,59 @@ double ZernikeRadialPolynomial(unsigned int n,
     return 0.0;
   }
 
+  // Evaluates the Zernike polynomials on the diagonal n=m.
   if (n==m)
   {
     return std::pow(r,n);
   }
 
+  // If the order is low enough, we use hard-coded polynomials.
+  if (n<=6)
+    return ZernikeRadialPolynomialLowOrder(n,m,r);
+
+  // Otherwise, we use the recursion relation, or the direct approach,
+  // as chosen by the user.
+  double zernike_value;
+  switch (eval_method)
+  {
+    case direct:
+    {
+      zernike_value = ZernikeRadialPolynomialDirect(n,m,r);
+      break;
+    }
+
+    case recursion:
+    {
+      zernike_value = ZernikeRadialPolynomialRecursion(n,m,r);
+      break;
+    }
+
+    default:
+    {
+      std::cout << "ZernikeRadialPolynomial: Specified eval_method not implemented."
+                << "Using the recursion method by default."
+                << std::endl;
+      zernike_value = ZernikeRadialPolynomialRecursion(n,m,r);
+      break;
+    }
+  }
+
+  return zernike_value;
+}
+
+double ZernikeRadialPolynomialLowOrder(unsigned int n,
+                                       unsigned int m,
+                                       double r)
+{
+  if (n>6)
+  {
+    std::cout << "ZernikeRadialPolynomialLowOrder: This function implements only polynomials with n < 6." << std::endl;
+    std::cerr << "Order n > 6 given in ZernikeRadialPolynomialLowOrder." << std::endl;
+    return 0.0;
+  }
+
   if (n==2 && m==0)
-  return 2.0*std::pow(r,2)-1.0;
+    return 2.0*std::pow(r,2)-1.0;
 
   if (n==3 && m==1)
   {
@@ -57,7 +104,37 @@ double ZernikeRadialPolynomial(unsigned int n,
     if (m==4)
       return 6.0*std::pow(r,6)-5.0*std::pow(r,4);
   }
+}
 
+double ZernikeRadialPolynomialDirect(unsigned int n,
+                                     unsigned int m,
+                                     double r)
+{
+  // We set up the recursion relations between the terms in the summation
+  // representation of the Zernike polynomials.
+  // We compute the first term, which r^m/m!.
+  double r_pow  = std::pow(r,m);
+  unsigned int npm2      = (n+m)/2;
+  unsigned int nmm2      = (n-m)/2;
+  double a_k    = std::pow(-1.0,nmm2)*binomial_coefficient(npm2,nmm2);
+
+  double zernike_value = a_k*r_pow;
+
+  for (int k=nmm2-1;k>=0;k--)
+  {
+    std::cout << "Computing the coefficient for k=" << k << "." << std::endl;
+    a_k   *= -(double)((k+1)*(n-k))/(double)((npm2-k)*(nmm2-k));
+    r_pow *= std::pow(r,2);
+    zernike_value += a_k*r_pow;
+  }
+
+  return zernike_value;
+}
+
+double ZernikeRadialPolynomialRecursion(unsigned int n,
+                                        unsigned int m,
+                                        double r)
+{
   // We now compute the Zernike polynomials with the recursion relation.
   // We determine the number of diagonals that need to be computed.
   unsigned int ndiags    = (n-m)/2;
@@ -73,7 +150,7 @@ double ZernikeRadialPolynomial(unsigned int n,
 
   for (unsigned int i=0; i<diag_size; i++)
   {
-    zernike_values_old[i] = ZernikeRadialPolynomial(i,i,r);
+    zernike_values_old[i] = std::pow(r,i);
   }
 
   --diag_size;
@@ -96,4 +173,4 @@ double ZernikeRadialPolynomial(unsigned int n,
   return zernike_values_new[diag_size];
 }
 
-}
+} // namespace Zernike

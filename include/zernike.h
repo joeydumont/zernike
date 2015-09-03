@@ -3,5 +3,6 @@
 
 #include "zernike_bits/zernike_poly.h"
 #include "zernike_bits/zernike_radial_poly.h"
+#include "zernike_bits/binomial_coefficient.h"
 
 #endif

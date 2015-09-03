@@ -3,6 +3,8 @@
 
 #include <cmath>
 
+#include <zernike_bits/zernike_radial_poly.h>
+
 namespace Zernike {
 
 double ZernikePolynomial(unsigned int n,
