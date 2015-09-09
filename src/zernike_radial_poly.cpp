@@ -113,10 +113,10 @@ double ZernikeRadialPolynomialDirect(unsigned int n,
   // We set up the recursion relations between the terms in the summation
   // representation of the Zernike polynomials.
   // We compute the first term, which r^m/m!.
-  double r_pow  = std::pow(r,m);
-  unsigned int npm2      = (n+m)/2;
-  unsigned int nmm2      = (n-m)/2;
-  double a_k    = std::pow(-1.0,nmm2)*binomial_coefficient(npm2,nmm2);
+  double r_pow      = std::pow(r,m);
+  unsigned int npm2 = (n+m)/2;
+  unsigned int nmm2 = (n-m)/2;
+  double a_k        = std::pow(-1.0,nmm2)*binomial_coefficient(npm2,nmm2);
 
   double zernike_value = a_k*r_pow;
 

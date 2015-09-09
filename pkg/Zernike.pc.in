@@ -1,0 +1,10 @@
+# -- The prefix is fixed by CMake
+prefix=@CMAKE_INSTALL_PREFIX@
+includedir=${prefix}/include
+libdir=${prefix}/lib
+
+Name: Zernike
+Description: Evaluation of the Zernike polynomials
+Version: @Zernike_VERSION_MAJOR@.@Zernike_VERSION_MINOR@.@Zernike_VERSION_RELEASE@
+Cflags: -I${includedir}/
+Libs: -L${libdir}/ -lZernike

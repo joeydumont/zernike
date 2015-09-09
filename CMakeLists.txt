@@ -66,3 +66,20 @@ target_link_libraries (${PROJECT_NAME} ${LIBS})
 # Install directories
 install (TARGETS   ${PROJECT_NAME} DESTINATION lib)
 install (DIRECTORY include/ DESTINATION include)
+
+# ----------------------------------------------------------------- #
+# --                   Packaging Instructions                    -- #
+# ----------------------------------------------------------------- #
+
+# Configure and install the pkg-config file.
+find_package(PkgConfig QUIET)
+if (PKG_CONFIG_FOUND)
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/pkg/Zernike.pc.in
+                 ${CMAKE_CURRENT_BINARY_DIR}/pkg/Zernike.pc @ONLY)
+  install       (FILES ${CMAKE_CURRENT_BINARY_DIR}/pkg/Zernike.pc
+                 DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig/)
+endif(PKG_CONFIG_FOUND)
+
+# Install the CMake Find Modules.
+install (DIRECTORY   ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules/
+         DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/Zernike)
