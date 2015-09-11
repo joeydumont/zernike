@@ -1,3 +1,16 @@
+/*! ------------------------------------------------------------------------- *
+ * Author:       Joey Dumont                   <joey.dumont@gmail.com>        *
+ * Date:         2015-09-11                                                   *
+ * Description:  Library include file for Zernike.                            *
+ * License:      CC0 - Public Domain.                                         *
+ *                                                                            *
+ * This file is part of the Zernike library. It is thus freely available and  *
+ * infinitely modifiable and copyable. As it is with such products, it comes  *
+ * with absolutely no warranty. It might even have bugs (!). If so, feel free *
+ * to drop a line at the email address above, or visit:                       *
+ * https://github.com/valandil/zernike                                        *
+ * -------------------------------------------------------------------------- */
+
 #ifndef ZERNIKE_H
 #define ZERNIKE_H
 

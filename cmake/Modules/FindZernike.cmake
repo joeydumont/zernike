@@ -1,6 +1,5 @@
 # --------------------------------------------------------------------------- #
 # Author:       Joey Dumont                   <joey.dumont@gmail.com>         #
-# Author:       François Fillion-Gourdeau     <francois.fillion@emt.inrs.ca>  #
 # Date:         2015-09-06                                                    #
 # Description:  Attempts to find the Zernike library.                         #
 # License:      CC0 - Public Domain                                           #
@@ -10,6 +9,12 @@
 #     - Zernike_FOUND: if system has Zernike and everything is parsed;        #
 #     - Zernike_INCLUDE_DIR: folder where headers are.                        #
 #     - Zernike_LIBRARY: library against which to link.                       #
+#                                                                             #
+# This file is part of the Zernike library. It is thus freely available and   #
+# infinitely modifiable and copyable. As it is with such products, it comes   #
+# with absolutely no warranty. It might even have bugs (!). If so, feel free  #
+# to drop a line at the email address above, or visit:                        #
+# https://github.com/valandil/zernike                                         #
 # ----------------------------------------------------------------------------#
 
 # -- LibFindMacros for convenience

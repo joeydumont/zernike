@@ -1,3 +1,11 @@
+/*! ------------------------------------------------------------------------- *
+ * This file is part of the Zernike library. It is thus freely available and  *
+ * infinitely modifiable and copyable. As it is with such products, it comes  *
+ * with absolutely no warranty. It might even have bugs (!). If so, feel free *
+ * to drop a line at the email address above, or visit:                       *
+ * https://github.com/valandil/zernike                                        *
+ * -------------------------------------------------------------------------- */
+
 #include <zernike_bits/zernike_indices.h>
 
 namespace Zernike {
