@@ -13,6 +13,8 @@
 
 namespace Zernike {
 
+/// Computes the binomial coefficient. The algorithm is stupid and this
+/// should be removed in favour of a call to boost.
 unsigned int binomial_coefficient(unsigned int n,
                                  unsigned int k);
 

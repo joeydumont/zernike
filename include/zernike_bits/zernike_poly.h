@@ -17,11 +17,16 @@
 
 namespace Zernike {
 
+/// Computes the value of a given Zernike polynomial
+/// at a given position in polar coordinates.
 double ZernikePolynomial(unsigned int n,
                          int          m,
                          double       r,
                          double       theta);
 
+/// Computes the sum of the Zernike polynomials up to
+/// natural order j.size with coefficients stored in j,
+/// in natural order.
 double ZernikeAberrations(std::vector<double> j,
                           double              r,
                           double              theta);

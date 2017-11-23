@@ -68,13 +68,6 @@ double ZernikeRadialPolynomialLowOrder(unsigned int n,
                                        unsigned int m,
                                        double r)
 {
-  if (n>6)
-  {
-    std::cout << "ZernikeRadialPolynomialLowOrder: This function implements only polynomials with n < 6." << std::endl;
-    std::cerr << "Order n > 6 given in ZernikeRadialPolynomialLowOrder." << std::endl;
-    return 0.0;
-  }
-
   if (n==2 && m==0)
     return 2.0*std::pow(r,2)-1.0;
 
@@ -112,6 +105,10 @@ double ZernikeRadialPolynomialLowOrder(unsigned int n,
     if (m==4)
       return 6.0*std::pow(r,6)-5.0*std::pow(r,4);
   }
+
+  std::cout << "ZernikeRadialPolynomialLowOrder: This function implements only polynomials with n < 6." << std::endl;
+  std::cerr << "Order n > 6 given in ZernikeRadialPolynomialLowOrder." << std::endl;
+  return 0.0;
 }
 
 double ZernikeRadialPolynomialDirect(unsigned int n,
