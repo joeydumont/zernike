@@ -15,9 +15,9 @@
 # --                 Name and version of library                 -- #
 # ----------------------------------------------------------------- #
 project(Zernike)
-set (Zernike_VERSION_MAJOR   0)
-set (Zernike_VERSION_MINOR   0)
-set (Zernike_VERSION_RELEASE 1)
+set (Zernike_VERSION_MAJOR   1)
+set (Zernike_VERSION_MINOR   1)
+set (Zernike_VERSION_RELEASE 0)
 
 # ----------------------------------------------------------------- #
 # --               Configuration and Dependencies                -- #
@@ -33,6 +33,11 @@ endif()
 # -- Search path for CMake modules.
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
                        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
+
+# -- Required dependency: Boost.
+find_package(Boost 1.48.0 REQUIRED)
+include_directories(${BOOST_INCLUDE_DIRS})
+SET (LIBS ${LIBS} ${BOOST_LIBRARIES})
 
 # -- Compiler config.
 # Configuration for the GCC compiler.
@@ -90,3 +95,10 @@ endif(PKG_CONFIG_FOUND)
 # Install the CMake Find Modules.
 install (DIRECTORY   ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules/
          DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/Zernike)
+
+# ----------------------------------------------------------------- #
+# --                        Unit Testing                         -- #
+# ----------------------------------------------------------------- #
+
+include(CTest)
+add_subdirectory(tests)

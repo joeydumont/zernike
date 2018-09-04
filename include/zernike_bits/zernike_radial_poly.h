@@ -24,18 +24,6 @@ double ZernikeRadialPolynomial(unsigned int n,
                                double r,
                                ZernikeEvaluationMethod eval_method = recursion);
 
-double ZernikeRadialPolynomialLowOrder(unsigned int n,
-                                       unsigned int m,
-                                       double r);
-
-double ZernikeRadialPolynomialDirect(unsigned int n,
-                                     unsigned int m,
-                                     double r);
-
-double ZernikeRadialPolynomialRecursion(unsigned int n,
-                                        unsigned int m,
-                                        double r);
-
 } // namespace Zernike
 
 #endif // ZERNIKE_POLY_H

@@ -22,9 +22,12 @@ double ZernikePolynomial(unsigned int n,
                          double       r,
                          double       theta);
 
+typedef enum e_IndexConventions {Natural, Noll, Phasics, OSA} IndexConvention;
+typedef void (*LinearToQuantumIndexConversionFunction)(int,int&,int&);
 double ZernikeAberrations(std::vector<double> j,
                           double              r,
-                          double              theta);
+                          double              theta,
+                          IndexConvention     convention = Phasics);
 
 } // namespace Zernike
 
