@@ -25,11 +25,14 @@ double ZernikePolynomial(unsigned int n,
                          double       theta);
 
 /// Computes the sum of the Zernike polynomials up to
-/// natural order j.size with coefficients stored in j,
-/// in natural order.
+/// order j.size with coefficients stored in j,
+/// in whatever linear index convention is specified.
+typedef enum e_IndexConventions {Natural, Noll, Phasics, OSA} IndexConvention;
+typedef void (*LinearToQuantumIndexConversionFunction)(int,int&,int&);
 double ZernikeAberrations(std::vector<double> j,
                           double              r,
-                          double              theta);
+                          double              theta,
+                          IndexConvention     convention = Phasics);
 
 } // namespace Zernike
 

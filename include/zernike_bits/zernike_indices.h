@@ -30,17 +30,18 @@ namespace Zernike {
 ///   @param[in]  j  Natural single-index.
 ///   @param[out] n  Principal quantum number converted from natural.
 ///   @param[out] m  Angular momentum quantum number converted from natural.
-void          NaturalToQuantum(unsigned int   j,
-                               unsigned int & n,
-                               int          & m);
+void          NaturalToQuantum(const int     j,
+                                     int   & n,
+                                     int   & m);
 
 /// Implements the double-index ("quantum") to single-index conversion.
 ///   @param[in]  n  Principal quantum number to be converted.
 ///   @param[in]  m  Angular momentum quantum number to be converted.
 ///   @retval     j  Natural single-index.
-unsigned int QuantumToNatural(unsigned int n,
-                              int          m);
+int           QuantumToNatural(const int n,
+                               const int m);
 ///@}
+
 
 /*! name Noll Single-Index Scheme
  * These functions implement a standard way to enumerate the Zernike polynomials
@@ -55,9 +56,10 @@ unsigned int QuantumToNatural(unsigned int n,
 ///   @param[in]  j  Noll single-index.
 ///   @param[out] n  Principal quantum number converted from Noll.
 ///   @param[out] m  Angular momentum quantum number converted from Noll.
-//void         NollToQuantum   (unsigned int   j,
-//                              unsigned int & n,
-//                              int          & m);
+void         NollToQuantum    (const int   j,
+                                     int & n,
+                                     int & m);
+///@}
 
 /// Implements the double-index ("quantum") to single-index (Noll) conversion.
 ///   @param[in]  n  Principal quantum number to be converted.
@@ -65,6 +67,17 @@ unsigned int QuantumToNatural(unsigned int n,
 ///   @retval     j  Natural single-index.
 //unsigned int QuantumToNoll   (unsigned int n,
 //                              int m);
+
+void         PhasicsToQuantum(const int    j,
+                                    int  & n,
+                                    int  & m);
+
+/// Converts from the OSA/ANSI standard to the quantum values.
+/// http://voi.opt.uh.edu/2000-JRS-standardsforrepotingtheopticalaberrationsofeyes.pdf
+void         OSAToQuantum     (const int    j,
+                                     int  & n,
+                                     int  & m);
+
 
 } // namespace Zernike
 
