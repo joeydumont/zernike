@@ -42,8 +42,8 @@ SET (LIBS ${LIBS} ${BOOST_LIBRARIES})
 # -- Compiler config.
 # Configuration for the GCC compiler.
 if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
-  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -Wall -march=native -std=c++11")
-  set (CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -O3 -Wall -march=native")
+  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -pg -g -Wall -march=native -std=c++11")
+  set (CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -O3 -pg -g -Wall -march=native")
 endif()
 
 if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Intel")

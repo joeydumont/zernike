@@ -25,9 +25,9 @@ double ZernikePolynomial(unsigned int n,
 
 
 double ZernikeAberrations(std::vector<double> j,
-			                   double            r,
-			                   double            theta,
-                         IndexConvention   idx_convention)
+			                    double              r,
+			                    double              theta,
+                          IndexConvention     idx_convention)
 {
   // Initilization of quantum indices for Zernike polynomials.
   int n;
@@ -35,6 +35,7 @@ double ZernikeAberrations(std::vector<double> j,
 
   // Initialization of sum of Zernike polynomials with given coefficients.
   double       zernike_sum = 0.0;
+  int          j_start;
 
   // Determine the function used to compute the indices.
   LinearToQuantumIndexConversionFunction f = NULL;
@@ -43,36 +44,41 @@ double ZernikeAberrations(std::vector<double> j,
   {
     case Natural:
     {
-      f = &NaturalToQuantum;
+      f       = &NaturalToQuantum;
+      j_start = 0;
       break;
     }
 
     case Noll:
     {
-      f = &NollToQuantum;
+      f       = &NollToQuantum;
+      j_start = 1;
       break;
     }
 
     case Phasics:
     {
-      f = &PhasicsToQuantum;
+      f       = &PhasicsToQuantum;
+      j_start = 1;
       break;
     }
 
     case OSA:
     {
-      f = &OSAToQuantum;
+      f       = &OSAToQuantum;
+      j_start = 0;
       break;
     }
 
     default:
     {
-      f = *PhasicsToQuantum;
+      f       = *PhasicsToQuantum;
+      j_start = 1;
       break;
     }
   }
 
-  for (unsigned int i=0; i<j.size(); i++)
+  for (unsigned int i=j_start; i<j.size()+j_start; i++)
   {
     // We compute the quantum indices from the OSA/ANSI indices.
     f(i,n,m);
