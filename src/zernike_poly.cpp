@@ -16,9 +16,9 @@ double ZernikePolynomial(unsigned int n,
 			                   double       theta)
 {
   unsigned int m_abs   = std::abs(m);
-  double normalization = std::sqrt((2.0*n+2.0)/((1.0+(m==0 ? 1.0 : 0.0))));
-  double radial_poly   = ZernikeRadialPolynomial(n,m_abs,r);
-  double angular_poly  = (m < 0 ? std::sin(m_abs*theta) : std::cos(m_abs*theta));
+  double normalization = std::pow(-1,n%2+1)*std::sqrt((2.0*n+2.0)/((1.0+(m==0 ? 1.0 : 0.0))));
+  double radial_poly   = ZernikeRadialPolynomial(n,m_abs,r, recursion);
+  double angular_poly  = (m < 0 ? -std::sin(m_abs*theta) : std::cos(m_abs*theta));
 
   return normalization*radial_poly*angular_poly;
 }

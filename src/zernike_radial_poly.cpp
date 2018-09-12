@@ -12,8 +12,8 @@
 namespace Zernike {
 
 static double ZernikeRadialPolynomialLowOrder(unsigned int n,
-                                       unsigned int m,
-                                       double r)
+                                              unsigned int m,
+                                              double r)
 {
   if (n==2 && m==0)
     return 2.0*std::pow(r,2)-1.0;
@@ -74,7 +74,6 @@ static double ZernikeRadialPolynomialDirect(unsigned int n,
 
   for (int k=nmm2-1;k>=0;k--)
   {
-    std::cout << "Computing the coefficient for k=" << k << "." << std::endl;
     a_k   *= -(double)((k+1)*(n-k))/(double)((npm2-k)*(nmm2-k));
     r_pow *= std::pow(r,2);
     zernike_value += a_k*r_pow;
@@ -146,8 +145,8 @@ double ZernikeRadialPolynomial(unsigned int n,
   }
 
   // If the order is low enough, we use hard-coded polynomials.
-  if (n<=6)
-    return ZernikeRadialPolynomialLowOrder(n,m,r);
+  //if (n<=6)
+  //  return ZernikeRadialPolynomialLowOrder(n,m,r);
 
   // Otherwise, we use the recursion relation, or the direct approach,
   // as chosen by the user.
