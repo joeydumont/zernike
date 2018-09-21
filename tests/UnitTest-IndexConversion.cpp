@@ -103,7 +103,7 @@ public:
 
 TEST_F(PhasicsToQuantumTest, IndexValuesAgainstReference)
 {
-    for (auto element : ReferenceIndexValues)
+    for (auto&& element : ReferenceIndexValues)
     {
         Zernike::PhasicsToQuantum(element.first, n,m);
 

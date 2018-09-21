@@ -72,7 +72,7 @@ double ZernikeAberrations(std::vector<double> j,
 
     default:
     {
-      f       = *PhasicsToQuantum;
+      f       = &PhasicsToQuantum;
       j_start = 1;
       break;
     }
@@ -84,7 +84,7 @@ double ZernikeAberrations(std::vector<double> j,
     f(i,n,m);
 
     // We add their contribution to the sum.
-    zernike_sum += j[i]*ZernikePolynomial(n,m,r,theta);
+    zernike_sum += j[i-j_start]*ZernikePolynomial(n,m,r,theta);
 
   }
 
