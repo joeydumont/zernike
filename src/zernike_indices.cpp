@@ -18,14 +18,6 @@ void NaturalToQuantum(const int   j,
                             int & n,
                             int & m)
 {
-  // The natural indices run from j=1 to j=inf.
-  if (j<1)
-  {
-    std::cout << "Zernike::NaturalToQuantum: The Noll indices run from j=1 to j=inf." << std::endl;
-    std::cerr << "Zernike::NaturalToQuantum: Argument error: The natural indices run from j=1 to j=inf." << std::endl;
-    return;
-  }
-
   if (j==0)
   {
     n=m=0;

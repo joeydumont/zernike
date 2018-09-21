@@ -6,6 +6,8 @@
 # --------------------------------------------------------------------------- #
 
 import numpy as np
+import time
+import dis
 
 # The Noll indices are related to the A176988 OIES sequence. The rule is that
 # odd j indices correspond to negative values of m, and even j to positive
@@ -36,23 +38,70 @@ def NollToQuantumTest(j):
         m_vec = np.array([j for j in range(-n[i],n[i]+2,2)])
         m_vec = np.sort(np.abs(m_vec))
         test     = (-1)**(j[i]%2)*m_vec[rpn[i]]
-        print(test)
         m[i] = test
 
-    #m = np.array([i for i in range(n,-n-2,-2)], dtype=int)
-    #m_ind = np.argsort((m))
-    #m = m[m_ind[::-1]]
+    return n, m
 
-    return indices, triangular_numbers, n, r,m#, (-1)**(n%2)*m[r]
+def NollToQuantumFaster(j):
+    indices = np.array(np.ceil((1+np.sqrt(1+8*j))/2),dtype=int)-1
+    triangular_numbers = np.array(indices*(indices+1)/2).astype(int)
+    n = indices -1
 
+    r = j - triangular_numbers
+    r +=n
+    m = (-1)**j * ((n % 2) + 2 * np.array((r + ((n+1)%2))/2).astype(int))
+
+    return n,m
+
+def NollToQuantumLoop(j):
+    n = np.empty((j.size))
+    m = np.empty((j.size))
+    for i in range(j.size):
+        n[i] = 0
+        j1 = j[i]-1
+        while (j1 > n[i]):
+            n[i] += 1
+            j1 -= n[i]
+
+        m[i] = (-1)**j[i] * ((n[i] % 2) + 2 * int((j1+((n[i]+1)%2)) / 2.0 ))
+    return n, m
 
 #for j in range(1,21):
 #    indices, triangular_numbers, n, r, m = NollToQuantumTest(j)
 #    print(indices,triangular_numbers,j,n,m)
 
-j_vec = np.array([j for j in range(1,21)], dtype=int)
-indices, triangular_numbers, n,r,m = NollToQuantumTest(j_vec)
+j_vec          = np.array([j for j in range(1,21)], dtype=int)
+n,m           = NollToQuantumTest(j_vec)
+n_fast, m_fast = NollToQuantumFaster(j_vec)
+n_loop, m_loop  = NollToQuantumLoop(j_vec)
 
-for i in range(j_vec.size):
-    print(j_vec[i], n[i], m[i])
 
+
+time_start = time.perf_counter()
+
+ntries = 1000
+for i in range(ntries):
+    n,m = NollToQuantumTest(j_vec)
+
+time_end = time.perf_counter()
+
+print("NollToQuantumTest time: {}", time_end-time_start)
+
+
+for i in range(ntries):
+    n,m = NollToQuantumFaster(j_vec)
+
+time_end = time.perf_counter()
+
+print("NollToQuantumFaster time: {}", time_end-time_start)
+
+for i in range(ntries):
+    n,m = NollToQuantumLoop(j_vec)
+
+time_end = time.perf_counter()
+
+print("NollToQuantumLoop time: {}", time_end-time_start)
+
+dis.dis(NollToQuantumTest)
+
+dis.dis(NollToQuantumFaster)
