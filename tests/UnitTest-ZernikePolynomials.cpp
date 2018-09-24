@@ -69,14 +69,47 @@ class ZernikeAberrationsTest : public testing::Test
 public:
     virtual void SetUp()
     {
+        rho   = arma::linspace<arma::vec>(0.0,1.0,rho_size);
+        theta = arma::linspace<arma::vec>(0.0,6.28,theta_size);
+        zernike_polynomials.set_size(rho_size,theta_size,j_max+1);
 
+        for (int i = 0; i <= j_max; i++)
+        {
+            std::vector<double> j(j_max+1);
+            j[i] = 1.0;
+
+            for (int rho_idx = 0; rho_idx < rho_size; rho_idx++)
+            {
+                for (int theta_idx = 0; theta_idx < theta_size; theta_idx++)
+                {
+                    zernike_polynomials(rho_idx,theta_idx,i) = Zernike::ZernikeAberrations(j,rho(rho_idx),theta(theta_idx));
+                }
+            }
+        }
     }
+
+    const int        j_max                = 30;
+    const int        rho_size             = 250;
+    const int        theta_size           = 250;
+          arma::vec  rho;
+          arma::vec  theta;
+          arma::cube zernike_polynomials;
 
 };
 
 TEST_F(ZernikeAberrationsTest, UnitCirclePlot)
 {
+    // Output the coordinates.
+    rho.save("rho.dat",arma::raw_ascii);
+    theta.save("theta.dat",arma::raw_ascii);
 
+    // Output the slices.
+    for (int slice_idx = 0; slice_idx <= j_max; slice_idx++)
+    {
+        std::stringstream ss;
+        ss << "zernike-aberrations-" << slice_idx+1 << ".dat";
+        zernike_polynomials.slice(slice_idx).save(ss.str(),arma::raw_ascii);
+    }
 }
 
 GTEST_API_ int main (int argc, char* argv[])
