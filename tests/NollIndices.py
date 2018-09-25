@@ -25,9 +25,9 @@ import dis
 def NollToQuantumTest(j):
     """
     """
-    indices = np.array(np.ceil((1+np.sqrt(1+8*j))/2),dtype=int)-1
+    indices = np.array(np.array(np.ceil((1+np.sqrt(1+8*j))/2),dtype=int)-1,dtype=int)
     triangular_numbers = np.array(indices*(indices+1)/2).astype(int)
-    n = indices - 1
+    n = np.array((indices - 1),dtype=int)
 
     r     = j - triangular_numbers
     rpn   = r+n
@@ -35,10 +35,26 @@ def NollToQuantumTest(j):
 
     # -- Have to work value-per-value here.
     for i in range(n.size):
-        m_vec = np.array([j for j in range(-n[i],n[i]+2,2)])
+        m_vec = np.array([j for j in range(-n[i],n[i]+2,2)],dtype=int)
         m_vec = np.sort(np.abs(m_vec))
-        test     = (-1)**(j[i]%2)*m_vec[rpn[i]]
-        m[i] = test
+        m[i]  = (-1)**(j[i]%2)*m_vec[rpn[i]]
+
+    return n, m
+
+def PhasicsToQuantum(j):
+    indices = np.array(np.array(np.ceil((1+np.sqrt(1+8*j))/2),dtype=int)-1,dtype=int)
+    triangular_numbers = np.array(indices*(indices+1)/2).astype(int)
+    n = np.array((indices - 1),dtype=int)
+
+    r     = j - triangular_numbers
+    rpn   = r+n
+    m     = np.zeros_like(n)
+
+    # -- Have to work value-per-value here.
+    for i in range(n.size):
+        m_vec = np.array([j for j in range(-n[i],n[i]+2,2)],dtype=int)
+        m_vec = np.sort(np.abs(m_vec))
+        m[i]  = (-1)**(triangular_numbers[i]%2+1)*(-1)**(j[i]%2)*m_vec[rpn[i]]
 
     return n, m
 
@@ -70,8 +86,9 @@ def NollToQuantumLoop(j):
 #    indices, triangular_numbers, n, r, m = NollToQuantumTest(j)
 #    print(indices,triangular_numbers,j,n,m)
 
-j_vec          = np.array([j for j in range(1,21)], dtype=int)
-n,m           = NollToQuantumTest(j_vec)
+j_vec          = np.array([j for j in range(1,51)], dtype=int)
+n_noll,m_noll           = NollToQuantumTest(j_vec)
+n_phasics,m_phasics = PhasicsToQuantum(j_vec)
 n_fast, m_fast = NollToQuantumFaster(j_vec)
 n_loop, m_loop  = NollToQuantumLoop(j_vec)
 
@@ -102,6 +119,8 @@ time_end = time.perf_counter()
 
 print("NollToQuantumLoop time: {}", time_end-time_start)
 
-dis.dis(NollToQuantumTest)
+# ------ Print markdown table.
+print("| $$j$$ | Noll | Phasics |")
 
-dis.dis(NollToQuantumFaster)
+for i in range(j_vec.size):
+    print("| $${}$$ | $$({:d},{:d})$$ | $$({:d},{:d})$$ |".format(i+1,n_noll[i],m_noll[i],n_phasics[i],m_phasics[i]))

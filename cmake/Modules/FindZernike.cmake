@@ -28,7 +28,7 @@ find_path(Zernike_INCLUDE_DIR
   NAMES zernike
   PATHS ${Zernike_PKGCONF_INCLUDE_DIRS})
 
-find_library(MuParser_LIBRARY
+find_library(Zernike_LIBRARY
   NAMES zernike
   PATHS ${Zernike_PKGCONF_LIBRARY_DIRS}
 )
