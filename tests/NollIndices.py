@@ -124,3 +124,20 @@ print("| $$j$$ | Noll | Phasics |")
 
 for i in range(j_vec.size):
     print("| $${}$$ | $$({:d},{:d})$$ | $$({:d},{:d})$$ |".format(i+1,n_noll[i],m_noll[i],n_phasics[i],m_phasics[i]))
+
+# ------ Print HTML table.
+print("<table>")
+print("\t <tr>")
+print("\t\t <th> $$j$$ </th>")
+print("\t\t <th> Noll </th>")
+print("\t\t <th> Phasics </th>")
+print("\t </tr>")
+
+for i in range(j_vec.size):
+    print("\t <tr>")
+    print("\t\t <th> $${}$$ </th>".format(i+1))
+    print("\t\t <th> $$({:d},{:d})$$ </th>".format(n_noll[i],m_noll[i]))
+    print("\t\t <th> $$({:d},{:d})$$ </th>".format(n_phasics[i],m_phasics[i]))
+    print("\t </tr>")
+
+print("</table>")
