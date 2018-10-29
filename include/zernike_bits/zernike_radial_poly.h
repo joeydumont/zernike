@@ -13,7 +13,6 @@
 #include <iostream>
 #include <vector>
 
-#include <zernike_bits/binomial_coefficient.h>
 
 namespace Zernike {
 
