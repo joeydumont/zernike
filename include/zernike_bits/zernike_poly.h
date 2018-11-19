@@ -19,6 +19,7 @@ namespace Zernike {
 
 /// Computes the value of a given Zernike polynomial
 /// at a given position in polar coordinates.
+ZERNIKE_API
 double ZernikePolynomial(unsigned int n,
                          int          m,
                          double       r,
@@ -29,6 +30,7 @@ double ZernikePolynomial(unsigned int n,
 /// in whatever linear index convention is specified.
 typedef enum e_IndexConventions {Natural, Noll, Phasics, OSA} IndexConvention;
 typedef void (*LinearToQuantumIndexConversionFunction)(int,int&,int&);
+ZERNIKE_API
 double ZernikeAberrations(std::vector<double> j,
                           double              r,
                           double              theta,

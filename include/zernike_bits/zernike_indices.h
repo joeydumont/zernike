@@ -14,6 +14,8 @@
 #ifndef ZERNIKE_INDICES_H
 #define ZERNIKE_INDICES_H
 
+#include "zernike_global.h"
+
 #include <iostream>
 
 namespace Zernike {
@@ -30,6 +32,7 @@ namespace Zernike {
 ///   @param[in]  j  Natural single-index.
 ///   @param[out] n  Principal quantum number converted from natural.
 ///   @param[out] m  Angular momentum quantum number converted from natural.
+ZERNIKE_API
 void          NaturalToQuantum(const int     j,
                                      int   & n,
                                      int   & m);
@@ -38,6 +41,7 @@ void          NaturalToQuantum(const int     j,
 ///   @param[in]  n  Principal quantum number to be converted.
 ///   @param[in]  m  Angular momentum quantum number to be converted.
 ///   @retval     j  Natural single-index.
+ZERNIKE_API
 int           QuantumToNatural(const int n,
                                const int m);
 ///@}
@@ -56,6 +60,7 @@ int           QuantumToNatural(const int n,
 ///   @param[in]  j  Noll single-index.
 ///   @param[out] n  Principal quantum number converted from Noll.
 ///   @param[out] m  Angular momentum quantum number converted from Noll.
+ZERNIKE_API
 void         NollToQuantum    (const int   j,
                                      int & n,
                                      int & m);
@@ -68,12 +73,14 @@ void         NollToQuantum    (const int   j,
 //unsigned int QuantumToNoll   (unsigned int n,
 //                              int m);
 
+ZERNIKE_API
 void         PhasicsToQuantum(const int    j,
                                     int  & n,
                                     int  & m);
 
 /// Converts from the OSA/ANSI standard to the quantum values.
 /// http://voi.opt.uh.edu/2000-JRS-standardsforrepotingtheopticalaberrationsofeyes.pdf
+ZERNIKE_API
 void         OSAToQuantum     (const int    j,
                                      int  & n,
                                      int  & m);

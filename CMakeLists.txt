@@ -62,6 +62,7 @@ aux_source_directory (${CMAKE_CURRENT_SOURCE_DIR}/src SRC_LIST)
 
 # -- Build a shared library
 add_library(${PROJECT_NAME} SHARED ${SRC_LIST})
+target_compile_definitions(${PROJECT_NAME} PRIVATE -DZERNIKE_EXPORTS)
 
 # Define the properties of the library to
 # be built (version and other stuff).
